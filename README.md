@@ -6,7 +6,9 @@
 * login
 * profil user
 * pagina produse(template filtrat)
+* prezentare produs(template_pt_produs)
 * pagina search (template precedent + filtru cuvinte cautate)
+* pagina cosul_meu
 * pagina contact
 * pagina faq
 * pagina wishlist
