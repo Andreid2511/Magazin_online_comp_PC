@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,9 +12,89 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <main>
-        <h1>Boata Andrei-Darius</h1>  
-    </main>
+    <nav>
+      <div class="logo_container">
+        <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+      </div>
+        <div class="container">
+          <input name="searchbox" id="sb" type="text" placeholder="Search..">
+          <button>Cauta</button>
+        </div>
+        <div class="container_right">
+          <a href="login.html">Contul meu</a>
+          <a href="cosul_meu.html">Cosul Meu</a>
+        </div>
+      </nav>
+    
+    <div class="nav-menu">
+      <a class="active" href="pagina_home.html">Home</a>
+      <a href="produse.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="auth-container">
+      <div class="auth-section">
+        <div class="auth-box login-box">
+          <h2>Customer Login</h2>
+          <form class="auth-form" action="#" method="POST">
+            <div class="form-group">
+              <label for="login-email">Email:</label>
+              <input type="email" id="login-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password:</label>
+              <input type="password" id="login-password" name="password" required>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="auth-button">Login</button>
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="auth-section">
+        <div class="auth-box register-box">
+          <h2>Create New Account</h2>
+          <form class="auth-form" action="#" method="POST">
+            <div class="form-group">
+              <label for="register-fname">First Name:</label>
+              <input type="text" id="register-fname" name="fname" required>
+            </div>
+            <div class="form-group">
+              <label for="register-lname">Last Name:</label>
+              <input type="text" id="register-lname" name="last_name" required>
+            </div>
+            <div class="form-group">
+              <label for="register-tel">Last Name:</label>
+              <input type="tel" id="register-tel" name="tel_number" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email:</label>
+              <input type="email" id="register-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password:</label>
+              <input type="password" id="register-password" name="password" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password:</label>
+              <input type="password" id="register-confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="terms" required>
+                I agree to the <a href="#">Terms and Conditions</a> of the website
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="auth-button">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
