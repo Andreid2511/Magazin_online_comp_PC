@@ -1,0 +1,56 @@
+main{
+    display: block;
+    margin: 0 auto;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 40px;
+    box-shadow: 0 0 40px purple;
+}
+div.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+img {
+    max-width: 500px;
+    height: 250px;
+    border-radius: 50px;
+    width: 100%;
+    box-shadow: 0 0 40px rgba(0, 128, 0, 0.526);
+}
+h1, h4{
+    text-align: center;
+    color:darkmagenta;
+}
+form {
+    width: 200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+body{
+    background-color: lightgray;
+}
+input[type="submit"]{
+    background-color: orange;
+    color: white;
+}
+input[type="reset"]{
+    background-color: gray;
+    color: white;
+}
+input[type="reset"]:hover{
+    background-color: black;
+    color: white;
+}
+input[type="submit"]:hover {
+    opacity: 0.8;
+    background-color: purple;
+    color: white;
+}
+
+p{
+    text-align: center;
+    color:darkgoldenrod;
+}
+input:focus, textarea:focus, select:focus{
+    outline: 2px,solid,blue;
+}
