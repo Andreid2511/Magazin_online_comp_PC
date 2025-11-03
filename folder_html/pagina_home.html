@@ -12,7 +12,9 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <nav>
+    <div class="page-grid">
+      <header id="top">
+        <nav>
       <div class="logo_container">
         <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
       </div>
@@ -25,16 +27,16 @@
           <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
         </div>
       </nav>
-    
-    <div class="nav-menu">
-      <a class="active" href="pagina_home.html">Home</a>
-      <a href="produse.html">Products</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="faq.html">FAQ</a>
-    </div>
+      <nav class="nav-menu">
+        <a class="active" href="pagina_home.html">Home</a>
+        <a href="produse.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      </header>
 
-    <main>
+      <main>
       <section class="hero">
         <div class="hero-content">
           <h1>Build Your Dream PC</h1>
@@ -74,7 +76,7 @@
         <div class="product-grid">
           <div class="product-card">
             <div class="product-badge">New</div>
-            <img src="https://via.placeholder.com/300x300" alt="Product 1">
+            <img src="../images/rtx_4090_oc.jpg" alt="Product 1">
             <h3>RTX 4090 Gaming OC</h3>
             <p class="price">$1999.99</p>
             <button class="add-to-cart">Add to Cart</button>
@@ -88,7 +90,7 @@
           </div>
           <div class="product-card">
             <div class="product-badge">Sale</div>
-            <img src="https://via.placeholder.com/300x300" alt="Product 3">
+            <img src="#" alt="Product 3">
             <h3>32GB DDR5 RAM Kit</h3>
             <p class="price">$199.99</p>
             <button class="add-to-cart">Add to Cart</button>
@@ -121,9 +123,9 @@
           </div>
         </div>
       </section>
-    </main>
+      </main>
 
-    <footer>
+      <footer>
       <div class="footer-content">
         <div class="footer-section">
           <h4>Contact Us</h4>
@@ -148,6 +150,9 @@
       <div class="footer-bottom">
         <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
       </div>
-    </footer>
+      </footer>
+
+      <a href="#top" class="back-to-top">⬆️ Top</a>
+    </div>
   </body>
 </html>

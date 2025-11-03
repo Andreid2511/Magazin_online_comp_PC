@@ -12,28 +12,33 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <nav>
-      <div class="logo_container">
-        <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
-      </div>
-        <div class="container">
-          <input name="searchbox" id="sb" type="text" placeholder="Search..">
-          <button>Cauta</button>
-        </div>
-        <div class="container_right">
-          <a href="login.html" class="social-link">Contul meu</a>
-          <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
-        </div>
-      </nav>
-    
-    <div class="nav-menu">
-      <a class="active" href="pagina_home.html">Home</a>
-      <a href="produse.html">Products</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="faq.html">FAQ</a>
-    </div>
-    <div class="about-page">
+    <div class="page-grid">
+      <header id="top">
+        <nav>
+          <div class="logo_container">
+            <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+          </div>
+          <div class="container">
+            <input name="searchbox" id="sb" type="text" placeholder="Search..">
+            <button>Cauta</button>
+          </div>
+          <div class="container_right">
+            <a href="login.html" class="social-link">Contul meu</a>
+            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+          </div>
+        </nav>
+
+        <nav class="nav-menu">
+          <a class="active" href="pagina_home.html">Home</a>
+          <a href="produse.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="about-page">
       <!-- Hero Section -->
       <section class="about-hero">
         <div class="about-hero-content">
@@ -137,20 +142,28 @@
           </div>
         </div>
       </section>
-    </div>
+        </div>
+      </main>
 
-    <footer>
-      <div class="footer-content">
-        <div class="footer-section">
+      <aside>
+        <div class="card">
           <h4>Quick Links</h4>
           <a href="produse.html">Products</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+        </div>
+      </aside>
+
+      <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: support@framerateshop.com</p>
+          <p>Phone: (555) 123-4567</p>
         </div>
         <div class="footer-section">
-          <h4>Legal</h4>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <h4>Quick Links</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
         </div>
         <div class="footer-section">
           <h4>Follow Us</h4>
@@ -164,7 +177,10 @@
       <div class="footer-bottom">
         <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
       </div>
-    </footer>
+      </footer>
+
+      <a href="#top" class="back-to-top">⬆️ Top</a>
+    </div>
 
     <script src="index.js"></script>
   </body>

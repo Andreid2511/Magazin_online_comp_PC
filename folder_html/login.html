@@ -7,93 +7,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proiect_TW</title>
+    <title>Proiect_TW - Login</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <nav>
-      <div class="logo_container">
-        <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
-      </div>
-        <div class="container">
-          <input name="searchbox" id="sb" type="text" placeholder="Search..">
-          <button>Cauta</button>
-        </div>
-        <div class="container_right">
-          <a href="login.html">Contul meu</a>
-          <a href="cosul_meu.html">Cosul Meu</a>
-        </div>
-      </nav>
-    
-    <div class="nav-menu">
-      <a class="active" href="pagina_home.html">Home</a>
-      <a href="produse.html">Products</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="faq.html">FAQ</a>
-    </div>
-    <div class="auth-container">
-      <div class="auth-section">
-        <div class="auth-box login-box">
-          <h2>Customer Login</h2>
-          <form class="auth-form" action="#" method="POST">
-            <div class="form-group">
-              <label for="login-email">Email:</label>
-              <input type="email" id="login-email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="login-password">Password:</label>
-              <input type="password" id="login-password" name="password" required>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="auth-button">Login</button>
-              <a href="#" class="forgot-password">Forgot Password?</a>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="page-grid">
+      <header id="top">
+        <nav>
+          <div class="logo_container">
+            <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+          </div>
+          <div class="container">
+            <input name="searchbox" id="sb" type="text" placeholder="Search..">
+            <button>Cauta</button>
+          </div>
+          <div class="container_right">
+            <a href="login.html" class="social-link">Contul meu</a>
+            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+          </div>
+        </nav>
 
-      <div class="auth-section">
-        <div class="auth-box register-box">
-          <h2>Create New Account</h2>
-          <form class="auth-form" action="#" method="POST">
-            <div class="form-group">
-              <label for="register-fname">First Name:</label>
-              <input type="text" id="register-fname" name="fname" required>
+        <nav class="nav-menu">
+          <a class="active" href="pagina_home.html">Home</a>
+          <a href="produse.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="auth-container">
+          <div class="auth-section">
+            <div class="auth-box login-box">
+              <h2>Customer Login</h2>
+              <form class="auth-form" action="#" method="POST">
+                <div class="form-group">
+                  <label for="login-email">Email:</label>
+                  <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="login-password">Password:</label>
+                  <input type="password" id="login-password" name="password" required>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="auth-button">Login</button>
+                  <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="register-lname">Last Name:</label>
-              <input type="text" id="register-lname" name="last_name" required>
+          </div>
+
+          <div class="auth-section">
+            <div class="auth-box register-box">
+              <h2>Create New Account</h2>
+              <form class="auth-form" action="#" method="POST">
+                <div class="form-group">
+                  <label for="register-fname">First Name:</label>
+                  <input type="text" id="register-fname" name="fname" required>
+                </div>
+                <div class="form-group">
+                  <label for="register-lname">Last Name:</label>
+                  <input type="text" id="register-lname" name="last_name" required>
+                </div>
+                <div class="form-group">
+                  <label for="register-tel">Telephone:</label>
+                  <input type="tel" id="register-tel" name="tel_number" required>
+                </div>
+                <div class="form-group">
+                  <label for="register-email">Email:</label>
+                  <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="register-password">Password:</label>
+                  <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                  <label for="register-confirm-password">Confirm Password:</label>
+                  <input type="password" id="register-confirm-password" name="confirm-password" required>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" name="terms" required>
+                    I agree to the <a href="#">Terms and Conditions</a> of the website
+                  </label>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="auth-button">Register</button>
+                </div>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="register-tel">Last Name:</label>
-              <input type="tel" id="register-tel" name="tel_number" required>
-            </div>
-            <div class="form-group">
-              <label for="register-email">Email:</label>
-              <input type="email" id="register-email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="register-password">Password:</label>
-              <input type="password" id="register-password" name="password" required>
-            </div>
-            <div class="form-group">
-              <label for="register-confirm-password">Confirm Password:</label>
-              <input type="password" id="register-confirm-password" name="confirm-password" required>
-            </div>
-            <div class="form-group">
-              <label>
-                <input type="checkbox" name="terms" required>
-                I agree to the <a href="#">Terms and Conditions</a> of the website
-              </label>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="auth-button">Register</button>
-            </div>
-          </form>
+          </div>
+        </div>
+      </main>
+
+      <aside>
+        <div class="card card--muted">
+          <h4>Help</h4>
+          <p>Need help? Contact support.</p>
+        </div>
+      </aside>
+
+      <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: support@framerateshop.com</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">Facebook</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">Instagram</a>
+          </div>
         </div>
       </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
+      </div>
+      </footer>
+
+      <a href="#top" class="back-to-top">⬆️ Top</a>
     </div>
     <script src="index.js"></script>
   </body>
