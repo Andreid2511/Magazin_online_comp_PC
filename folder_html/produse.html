@@ -12,49 +12,50 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <div class="page-grid">
-      <header id="top">
-        <div class="logo_container">
-          <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+    <header id="top">
+        <div class = "top_container">
+          <div class="container">
+            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
+          </div>
+          <div class="container">
+            <input name="searchbox" id="sb" type="text" placeholder="Search..">
+            <button>Cauta</button>
+          </div>
+          <div class="container">
+            <a href="login.html" class="social-link">Contul meu</a>
+            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+          </div>
         </div>
-        <div class="container">
-          <input name="searchbox" id="sb" type="text" placeholder="Search..">
-          <button>Cauta</button>
-        </div>
-        <div class="container_right">
-          <a href="login.html">Contul meu</a>
-          <a href="cosul_meu.html">Cosul Meu</a>
-        </div>
-      </header>
 
-      <nav class="nav-menu">
-        <a class="active" href="pagina_home.html">Home</a>
-        <a href="produse.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="faq.html">FAQ</a>
-      </nav>
+        <nav class="nav-menu">
+          <a class="active" href="pagina_home.html">Home</a>
+          <a href="produse.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </header>
 
       <main>
         <section class="featured-products">
           <h2>Products</h2>
-          <div class="product-grid">
-            <div class="product-card">
-              <img src="https://via.placeholder.com/300x300" alt="Product A">
-              <h3>Sample Product A</h3>
-              <p class="price">$49.99</p>
+          <div class="product-list">
+            <div class="card" data-product-id="product-a" data-product-category="sample">
+              <img src="https://via.placeholder.com/300x300" alt="Product A" data-product-image="product-a.jpg">
+              <h3 data-product-title="Sample Product A">Sample Product A</h3>
+              <p class="price" data-product-price="49.99">$49.99</p>
               <button class="add-to-cart">Add to Cart</button>
             </div>
-            <div class="product-card">
-              <img src="https://via.placeholder.com/300x300" alt="Product B">
-              <h3>Sample Product B</h3>
-              <p class="price">$89.99</p>
+            <div class="card" data-product-id="product-b" data-product-category="sample">
+              <img src="https://via.placeholder.com/300x300" alt="Product B" data-product-image="product-b.jpg">
+              <h3 data-product-title="Sample Product B">Sample Product B</h3>
+              <p class="price" data-product-price="89.99">$89.99</p>
               <button class="add-to-cart">Add to Cart</button>
             </div>
-            <div class="product-card">
-              <img src="https://via.placeholder.com/300x300" alt="Product C">
-              <h3>Sample Product C</h3>
-              <p class="price">$129.99</p>
+            <div class="card" data-product-id="product-c" data-product-category="sample">
+              <img src="https://via.placeholder.com/300x300" alt="Product C" data-product-image="product-c.jpg">
+              <h3 data-product-title="Sample Product C">Sample Product C</h3>
+              <p class="price" data-product-price="129.99">$129.99</p>
               <button class="add-to-cart">Add to Cart</button>
             </div>
           </div>

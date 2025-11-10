@@ -14,19 +14,19 @@
   <body>
     <div class="page-grid">
       <header id="top">
-        <nav>
-          <div class="logo_container">
-            <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+        <div class = "top_container">
+          <div class="container">
+            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" placeholder="Search..">
             <button>Cauta</button>
           </div>
-          <div class="container_right">
+          <div class="container">
             <a href="login.html" class="social-link">Contul meu</a>
             <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
           </div>
-        </nav>
+        </div>
 
         <nav class="nav-menu">
           <a class="active" href="pagina_home.html">Home</a>
@@ -40,7 +40,7 @@
       <main>
         <div class="auth-container">
           <div class="auth-section">
-            <div class="auth-box login-box">
+            <div class="box login-box">
               <h2>Customer Login</h2>
               <form class="auth-form" action="#" method="POST">
                 <div class="form-group">
@@ -60,7 +60,7 @@
           </div>
 
           <div class="auth-section">
-            <div class="auth-box register-box">
+            <div class="box box">
               <h2>Create New Account</h2>
               <form class="auth-form" action="#" method="POST">
                 <div class="form-group">
@@ -88,9 +88,9 @@
                   <input type="password" id="register-confirm-password" name="confirm-password" required>
                 </div>
                 <div class="form-group">
-                  <label>
+                  <label class = "terms-label">
+                    <p>I agree to the <a href="#">Terms and Conditions</a> of the website</p>
                     <input type="checkbox" name="terms" required>
-                    I agree to the <a href="#">Terms and Conditions</a> of the website
                   </label>
                 </div>
                 <div class="form-actions">

@@ -14,18 +14,19 @@
   <body>
     <div class="page-grid">
       <header id="top">
-        <nav>
-          <div class="logo_container">
-            <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+        <div class = "top_container">
+          <div class="container">
+            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" placeholder="Search..">
+            <button>Cauta</button>
           </div>
-          <div class="container_right">
+          <div class="container">
             <a href="login.html" class="social-link">Contul meu</a>
             <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
           </div>
-        </nav>
+        </div>
 
         <nav class="nav-menu">
           <a class="active" href="pagina_home.html">Home</a>
@@ -37,9 +38,17 @@
       </header>
 
       <main>
-        <h1 class="titlu">Your Cart</h1>
         <div class="container">
-          <p>Your cart items will appear here.</p>
+          <h1>Your Shopping Cart</h1>
+          <div id="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+          </div>
+          <div id="cart-summary" class="box" style="margin-top: 2rem;">
+            <div class="flex" style="justify-content: space-between; align-items: center;">
+              <h3>Total: <span id="cart-total">$0.00</span></h3>
+              <button class="btn" onclick="FRCart.clear()">Clear Cart</button>
+            </div>
+          </div>
         </div>
       </main>
 
