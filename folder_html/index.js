@@ -157,7 +157,70 @@
     onScroll();
   }
 
-      // Cart page rendering
+  // Product page: swap product info based on ?product= param
+  function swapProductInfo() {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get('product');
+    if(product) {
+      const data = {
+        'product-a': {
+          img: 'https://via.placeholder.com/300x300?text=Product+A',
+          title: 'Sample Product A',
+          price: '$49.99'
+        },
+        'product-b': {
+          img: 'https://via.placeholder.com/300x300?text=Product+B',
+          title: 'Sample Product B',
+          price: '$89.99'
+        },
+        'product-c': {
+          img: 'https://via.placeholder.com/300x300?text=Product+C',
+          title: 'Sample Product C',
+          price: '$129.99'
+        }
+      };
+      if(data[product]) {
+        var img = document.getElementById('product-img');
+        var title = document.getElementById('product-title');
+        var price = document.getElementById('product-price');
+        if(img) img.src = data[product].img;
+        if(title) title.textContent = data[product].title;
+        if(price) price.textContent = data[product].price;
+      }
+    }
+  }
+  if(window.location.pathname.includes('prezentare_produs.html')) {
+    swapProductInfo();
+  }
+
+  // Product list: link to prezentare_produs.html with correct product
+  function setupProductLinks() {
+    if(window.location.pathname.includes('produse.html')) {
+      document.querySelectorAll('.product-list .card').forEach(function(card) {
+        var id = card.getAttribute('data-product-id');
+        if(id) {
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function(e) {
+            // Only follow if not clicking a button
+            if(e.target.tagName !== 'BUTTON') {
+              window.location.href = 'prezentare_produs.html?product=' + id;
+            }
+          });
+          // Also update Add to Cart button to link to product page
+          var btn = card.querySelector('.add-to-cart');
+          if(btn) {
+            btn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              window.location.href = 'prezentare_produs.html?product=' + id;
+            });
+          }
+        }
+      });
+    }
+  }
+  setupProductLinks();
+
+  // Cart page rendering
   function setupCartPage() {
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
