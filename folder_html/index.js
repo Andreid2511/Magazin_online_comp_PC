@@ -313,3 +313,22 @@
     };
   });
 })();
+
+const filterBtn = document.getElementById("filter_button");
+const productsAside = document.getElementById("products-aside");
+const applyBtn = document.getElementById("apply_filters");
+const productsMain = document.getElementById("products-main");
+
+filterBtn.addEventListener("click", () => {
+  productsAside.classList.toggle("active");
+});
+
+filterBtn.addEventListener("click", () => {
+  productsAside.classList.toggle("active");
+  productsMain.classList.remove("fullwidth");
+});
+
+applyBtn.addEventListener("click", () => {
+  productsAside.classList.remove("active");
+  productsMain.classList.add("fullwidth");
+});
