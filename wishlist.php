@@ -1,3 +1,7 @@
+<?php
+session_start(); // <--- MUST BE THE FIRST LINE
+require 'db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,38 +20,41 @@
       <header id="top">
         <div class = "top_container">
           <div class="container">
-            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
+            <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" class="search-box" placeholder="Search..">
             <button>Cauta</button>
           </div>
           <div class="container">
-            <a href="login.html" class="social-link">Contul meu</a>
-            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+            <?php if(isset($_SESSION['user_name'])): ?>
+              <a href="profil.php" class="social-link">Hello, <?= htmlspecialchars($_SESSION['user_name']) ?></a>
+            <?php else: ?>
+              <a href="login.php" class="social-link">Contul meu</a>
+            <?php endif; ?>
+            <a href="cosul_meu.php" class="social-link">Cosul Meu</a>
           </div>
         </div>
 
         <nav class="nav-menu">
-          <a class="active" href="pagina_home.html">Home</a>
-          <a href="produse.html">Products</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a class="active" href="pagina_home.php">Home</a>
+          <a href="produse.php">Products</a>
+          <a href="about.php">About</a>
+          <a href="contact.php">Contact</a>
+          <a href="faq.php">FAQ</a>
         </nav>
       </header>
 
       <main>
-        <section class="profile-section">
-          <h2>Your Profile</h2>
-          <p>Profile details will appear here.</p>
-        </section>
+        <h1 class="titlu">Wishlist</h1>
+        <div class="container">
+          <p>Your wishlist items will appear here.</p>
+        </div>
       </main>
 
       <aside>
         <div class="card">
-          <h4>Account</h4>
-          <a href="#">Orders</a>
+          <h4>Suggestions</h4>
         </div>
       </aside>
 
@@ -60,9 +67,9 @@
         </div>
         <div class="footer-section">
           <h4>Quick Links</h4>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a href="about.php">About Us</a>
+          <a href="contact.php">Contact</a>
+          <a href="faq.php">FAQ</a>
         </div>
         <div class="footer-section">
           <h4>Follow Us</h4>

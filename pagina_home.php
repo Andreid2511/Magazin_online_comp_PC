@@ -1,3 +1,7 @@
+<?php
+session_start();
+require 'db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,24 +20,28 @@
       <header id="top">
         <div class = "top_container">
           <div class="container">
-            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
+            <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" class="search-box" placeholder="Search..">
             <button>Cauta</button>
           </div>
           <div class="container">
-            <a href="login.html" class="social-link">Contul meu</a>
-            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+            <?php if(isset($_SESSION['user_name'])): ?>
+                <a href="profil.php" class="social-link">Hello, <?= htmlspecialchars($_SESSION['user_name']) ?></a>
+            <?php else: ?>
+                <a href="login.php" class="social-link">Contul meu</a>
+            <?php endif; ?>
+            <a href="cosul_meu.php" class="social-link">Cosul Meu</a>
           </div>
         </div>
 
         <nav class="nav-menu">
-          <a class="active" href="pagina_home.html">Home</a>
-          <a href="produse.html">Products</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a class="active" href="pagina_home.php">Home</a>
+          <a href="produse.php">Products</a>
+          <a href="about.php">About</a>
+          <a href="contact.php">Contact</a>
+          <a href="faq.php">FAQ</a>
         </nav>
       </header>
 
@@ -42,7 +50,7 @@
         <div class="hero-content">
           <h1>Build Your Dream PC</h1>
           <p>High-performance components for gaming and professional use</p>
-          <a href="produse.html" class="cta-button">Shop Now</a>
+          <a href="produse.php" class="cta-button">Shop Now</a>
         </div>
       </section>
 
@@ -52,22 +60,22 @@
           <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Processors">
             <h3>Processors</h3>
-            <a href="produse.html?category=processors" class="category-link">View All</a>
+            <a href="produse.php?category=processors" class="category-link">View All</a>
           </div>
           <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Graphics Cards">
             <h3>Graphics Cards</h3>
-            <a href="produse.html?category=gpu" class="category-link">View All</a>
+            <a href="produse.php?category=gpu" class="category-link">View All</a>
           </div>
           <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Memory">
             <h3>Memory</h3>
-            <a href="produse.html?category=memory" class="category-link">View All</a>
+            <a href="produse.php?category=memory" class="category-link">View All</a>
           </div>
           <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Storage">
             <h3>Storage</h3>
-            <a href="produse.html?category=storage" class="category-link">View All</a>
+            <a href="produse.php?category=storage" class="category-link">View All</a>
           </div>
         </div>
       </section>
@@ -135,9 +143,9 @@
         </div>
         <div class="footer-section">
           <h4>Quick Links</h4>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a href="about.php">About Us</a>
+          <a href="contact.php">Contact</a>
+          <a href="faq.php">FAQ</a>
         </div>
         <div class="footer-section">
           <h4>Follow Us</h4>
