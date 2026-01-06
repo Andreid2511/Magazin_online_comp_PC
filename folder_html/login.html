@@ -14,19 +14,19 @@
   <body>
     <div class="page-grid">
       <header id="top">
-        <nav>
-          <div class="logo_container">
-            <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+        <div class = "top_container">
+          <div class="container">
+            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" placeholder="Search..">
             <button>Cauta</button>
           </div>
-          <div class="container_right">
+          <div class="container">
             <a href="login.html" class="social-link">Contul meu</a>
             <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
           </div>
-        </nav>
+        </div>
 
         <nav class="nav-menu">
           <a class="active" href="pagina_home.html">Home</a>
@@ -38,66 +38,55 @@
       </header>
 
       <main>
-        <div class="auth-container">
-          <div class="auth-section">
-            <div class="auth-box login-box">
-              <h2>Customer Login</h2>
-              <form class="auth-form" action="#" method="POST">
-                <div class="form-group">
-                  <label for="login-email">Email:</label>
-                  <input type="email" id="login-email" name="email" required>
-                </div>
-                <div class="form-group">
-                  <label for="login-password">Password:</label>
-                  <input type="password" id="login-password" name="password" required>
-                </div>
-                <div class="form-actions">
-                  <button type="submit" class="auth-button">Login</button>
-                  <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-              </form>
-            </div>
+        <div class="container">
+          <div class="box">
+            <h2>Customer Login</h2>
+            <form class="auth-form" action="#" method="POST">
+              <div class="form-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn">Login</button>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+              </div>
+            </form>
           </div>
-
-          <div class="auth-section">
-            <div class="auth-box register-box">
-              <h2>Create New Account</h2>
-              <form class="auth-form" action="#" method="POST">
-                <div class="form-group">
-                  <label for="register-fname">First Name:</label>
-                  <input type="text" id="register-fname" name="fname" required>
-                </div>
-                <div class="form-group">
-                  <label for="register-lname">Last Name:</label>
-                  <input type="text" id="register-lname" name="last_name" required>
-                </div>
-                <div class="form-group">
-                  <label for="register-tel">Telephone:</label>
-                  <input type="tel" id="register-tel" name="tel_number" required>
-                </div>
-                <div class="form-group">
-                  <label for="register-email">Email:</label>
-                  <input type="email" id="register-email" name="email" required>
-                </div>
-                <div class="form-group">
-                  <label for="register-password">Password:</label>
-                  <input type="password" id="register-password" name="password" required>
-                </div>
-                <div class="form-group">
-                  <label for="register-confirm-password">Confirm Password:</label>
-                  <input type="password" id="register-confirm-password" name="confirm-password" required>
-                </div>
-                <div class="form-group">
-                  <label>
-                    <input type="checkbox" name="terms" required>
-                    I agree to the <a href="#">Terms and Conditions</a> of the website
-                  </label>
-                </div>
-                <div class="form-actions">
-                  <button type="submit" class="auth-button">Register</button>
-                </div>
-              </form>
-            </div>
+          <div class="box">
+            <h2>Register</h2>
+            <form class="auth-form" action="#" method="POST">
+              <div class="form-group">
+                <label for="register-name">Name:</label>
+                <input type="text" id="register-name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+              </div>
+              <div class="form-group">
+                <label for="register-confirm">Confirm Password:</label>
+                <input type="password" id="register-confirm" name="confirm" required>
+              </div>
+              <div class="form-group terms-label">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">I want to receive the weekly newsletter with updates and exclusive FrameRate Parts campaigns.</label>
+              </div>
+              <div class="form-group terms-label">
+                <input type="checkbox" id="privacy" name="privacy" required>
+                <label for="privacy">I agree to the processing of personal data according to the Privacy Policy.</label>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn">Register</button>
+              </div>
+            </form>
           </div>
         </div>
       </main>

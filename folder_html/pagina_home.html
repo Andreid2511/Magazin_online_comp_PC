@@ -14,26 +14,27 @@
   <body>
     <div class="page-grid">
       <header id="top">
-        <nav>
-      <div class="logo_container">
-        <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
-      </div>
-        <div class="container">
-          <input name="searchbox" id="sb" type="text" placeholder="Search..">
-          <button>Cauta</button>
+        <div class = "top_container">
+          <div class="container">
+            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
+          </div>
+          <div class="container">
+            <input name="searchbox" id="sb" type="text" placeholder="Search..">
+            <button>Cauta</button>
+          </div>
+          <div class="container">
+            <a href="login.html" class="social-link">Contul meu</a>
+            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+          </div>
         </div>
-        <div class="container_right">
-          <a href="login.html" class="social-link">Contul meu</a>
-          <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
-        </div>
-      </nav>
-      <nav class="nav-menu">
-        <a class="active" href="pagina_home.html">Home</a>
-        <a href="produse.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="faq.html">FAQ</a>
-      </nav>
+
+        <nav class="nav-menu">
+          <a class="active" href="pagina_home.html">Home</a>
+          <a href="produse.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
       </header>
 
       <main>
@@ -47,23 +48,23 @@
 
       <section class="categories">
         <h2>Shop by Category</h2>
-        <div class="category-grid">
-          <div class="category-card">
+        <div class="cards-grid">
+          <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Processors">
             <h3>Processors</h3>
             <a href="produse.html?category=processors" class="category-link">View All</a>
           </div>
-          <div class="category-card">
+          <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Graphics Cards">
             <h3>Graphics Cards</h3>
             <a href="produse.html?category=gpu" class="category-link">View All</a>
           </div>
-          <div class="category-card">
+          <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Memory">
             <h3>Memory</h3>
             <a href="produse.html?category=memory" class="category-link">View All</a>
           </div>
-          <div class="category-card">
+          <div class="card">
             <img src="https://via.placeholder.com/200x200" alt="Storage">
             <h3>Storage</h3>
             <a href="produse.html?category=storage" class="category-link">View All</a>
@@ -73,26 +74,26 @@
 
       <section class="featured-products">
         <h2>Featured Products</h2>
-        <div class="product-grid">
-          <div class="product-card">
+        <div class="product-list">
+          <div class="card" data-product-id="rtx4090-oc" data-product-category="gpu">
             <div class="product-badge">New</div>
-            <img src="../images/rtx_4090_oc.jpg" alt="Product 1">
-            <h3>RTX 4090 Gaming OC</h3>
-            <p class="price">$1999.99</p>
+            <img src="../images/rtx_4090_oc.jpg" alt="RTX 4090 Gaming OC" data-product-image="rtx4090-oc.jpg">
+            <h3 data-product-title="RTX 4090 Gaming OC">RTX 4090 Gaming OC</h3>
+            <p class="price" data-product-price="1999.99">$1999.99</p>
             <button class="add-to-cart">Add to Cart</button>
           </div>
-          <div class="product-card">
+          <div class="card" data-product-id="ryzen-7950x" data-product-category="cpu">
             <div class="product-badge">Popular</div>
-            <img src="https://via.placeholder.com/300x300" alt="Product 2">
-            <h3>AMD Ryzen 9 7950X</h3>
-            <p class="price">$699.99</p>
+            <img src="https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x.jpg" alt="AMD Ryzen 9 7950X" data-product-image="ryzen-7950x.jpg">
+            <h3 data-product-title="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X</h3>
+            <p class="price" data-product-price="699.99">$699.99</p>
             <button class="add-to-cart">Add to Cart</button>
           </div>
-          <div class="product-card">
+          <div class="card" data-product-id="ddr5-32gb" data-product-category="memory">
             <div class="product-badge">Sale</div>
-            <img src="#" alt="Product 3">
-            <h3>32GB DDR5 RAM Kit</h3>
-            <p class="price">$199.99</p>
+            <img src="https://s13emagst.akamaized.net/products/46229/46228451/images/res_2687de85a666c87c33e7b89a3736072d.jpg?width=720&height=720&hash=58135D6032B54C3621C8A5428365951E" alt="32GB DDR5 RAM Kit" data-product-image="ddr5-32gb.jpg">
+            <h3 data-product-title="32GB DDR5 RAM Kit">32GB DDR5 RAM Kit</h3>
+            <p class="price" data-product-price="199.99">$199.99</p>
             <button class="add-to-cart">Add to Cart</button>
           </div>
         </div>
@@ -100,23 +101,23 @@
 
       <section class="features">
         <h2>Why Choose Us</h2>
-        <div class="features-grid">
-          <div class="feature-card">
+        <div class="cards-grid">
+          <div class="card">
             <i class="feature-icon">🚚</i>
             <h3>Fast Shipping</h3>
             <p>Free shipping on orders over $100</p>
           </div>
-          <div class="feature-card">
+          <div class="card">
             <i class="feature-icon">⚡</i>
             <h3>Expert Support</h3>
             <p>24/7 technical assistance</p>
           </div>
-          <div class="feature-card">
+          <div class="card">
             <i class="feature-icon">🛡️</i>
             <h3>Warranty</h3>
             <p>3-year warranty on all products</p>
           </div>
-          <div class="feature-card">
+          <div class="card">
             <i class="feature-icon">💰</i>
             <h3>Best Prices</h3>
             <p>Price match guarantee</p>
@@ -154,5 +155,6 @@
 
       <a href="#top" class="back-to-top">⬆️ Top</a>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
