@@ -1,82 +1,88 @@
+<?php
+session_start();
+require 'db.php';
+
+// Get Product ID from URL
+$product_id = isset($_GET['product']) ? intval($_GET['product']) : 0;
+
+// Fetch Product Details
+$stmt = $pdo->prepare("SELECT * FROM products WHERE product_id = ?");
+$stmt->execute([$product_id]);
+$product = $stmt->fetch();
+
+// Redirect if product not found
+if (!$product) {
+    header("Location: produse.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proiect_TW</title>
+    <title><?= htmlspecialchars($product['name']) ?> - FrameRate Parts</title>
     <link rel="stylesheet" href="./index.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="page-grid">
       <header id="top">
-        <div class = "top_container">
+        <div class="top_container">
           <div class="container">
-            <a href="pagina_home.html"><h1 class="title">FrameRate Parts</h1></a>
+            <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
-            <input name="searchbox" id="sb" type="text" class="search-box" placeholder="Search..">
-            <button>Cauta</button>
-          </div>
-          <div class="container">
-            <a href="login.html" class="social-link">Contul meu</a>
-            <a href="cosul_meu.html" class="social-link">Cosul Meu</a>
+            <?php if(isset($_SESSION['user_name'])): ?>
+              <a href="profil.php" class="social-link">Hello, <?= htmlspecialchars($_SESSION['user_name']) ?></a>
+            <?php else: ?>
+              <a href="login.php" class="social-link">Contul meu</a>
+            <?php endif; ?>
+            <a href="cosul_meu.php" class="social-link">Cosul Meu</a>
           </div>
         </div>
-
         <nav class="nav-menu">
-          <a class="active" href="pagina_home.html">Home</a>
-          <a href="produse.html">Products</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a href="pagina_home.php">Home</a>
+          <a class="active" href="produse.php">Products</a>
+          <a href="about.php">About</a>
+          <a href="contact.php">Contact</a>
+          <a href="faq.php">FAQ</a>
         </nav>
       </header>
 
-      <div class="product-detail container">
+      <div class="product-detail container" style="margin-top:2rem;">
         <div class="product-image">
-          <img id="product-img" src="../images/rtx_4090_oc.jpg" alt="Product Image">
+          <img id="product-img" src="images/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
         </div>
         <div class="product-info">
-          <h1 id="product-title">RTX 4090 Gaming OC</h1>
-          <p class="lead">Top-tier performance for 4K gaming and content creation. Overclocked factory settings, enhanced cooling and premium components.</p>
-          <p class="price" id="product-price">$1999.99</p>
-          <button class="add-to-cart">Add to Cart</button>
+          <h1 id="product-title"><?= htmlspecialchars($product['name']) ?></h1>
+          
+          <?php if($product['badge_label']): ?>
+            <span class="product-badge" style="display:inline-block; margin-bottom:1rem;"><?= htmlspecialchars($product['badge_label']) ?></span>
+          <?php endif; ?>
+
+          <p class="lead"><?= htmlspecialchars($product['description']) ?></p>
+          <p class="price" id="product-price">$<?= htmlspecialchars($product['price']) ?></p>
+          
+          <div class="card" style="border:none; background:transparent; padding:0; text-align:left;"
+               data-product-id="<?= $product['product_id'] ?>"
+               data-product-title="<?= htmlspecialchars($product['name']) ?>"
+               data-product-price="<?= $product['price'] ?>"
+               data-product-image="images/<?= htmlspecialchars($product['image_url']) ?>">
+               
+            <button class="add-to-cart btn" style="font-size:1.2rem; padding:1rem 2rem;">Add to Cart</button>
+          </div>
+          
+          <p style="margin-top:1rem; color:#888;">Category: <?= htmlspecialchars($product['category_id']) ?> | Stock: <?= $product['stock_quantity'] ?></p>
         </div>
       </div>
 
       <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>Contact Us</h4>
-          <p>Email: support@framerateshop.com</p>
-          <p>Phone: (555) 123-4567</p>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
         </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
-        </div>
-        <div class="footer-section">
-          <h4>Follow Us</h4>
-          <div class="social-links">
-            <a href="#" class="social-link">Facebook</a>
-            <a href="#" class="social-link">Twitter</a>
-            <a href="#" class="social-link">Instagram</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
-      </div>
       </footer>
-
-      <a href="#top" class="back-to-top">⬆️ Top</a>
     </div>
     <script src="index.js"></script>
   </body>
