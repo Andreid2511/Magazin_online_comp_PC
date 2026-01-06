@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,9 +12,92 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <main>
-        <h1>Boata Andrei-Darius</h1>  
-    </main>
+    <div class="page-grid">
+      <header id="top">
+        <div class="logo_container">
+          <a href="pagina_home.html"><h1 class="titlu">FrameRate Parts</h1></a>
+        </div>
+        <div class="container">
+          <input name="searchbox" id="sb" type="text" placeholder="Search..">
+          <button>Cauta</button>
+        </div>
+        <div class="container_right">
+          <a href="login.html">Contul meu</a>
+          <a href="cosul_meu.html">Cosul Meu</a>
+        </div>
+      </header>
+
+      <nav class="nav-menu">
+        <a class="active" href="pagina_home.html">Home</a>
+        <a href="produse.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+
+      <main>
+        <section class="featured-products">
+          <h2>Products</h2>
+          <div class="product-grid">
+            <div class="product-card">
+              <img src="https://via.placeholder.com/300x300" alt="Product A">
+              <h3>Sample Product A</h3>
+              <p class="price">$49.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product-card">
+              <img src="https://via.placeholder.com/300x300" alt="Product B">
+              <h3>Sample Product B</h3>
+              <p class="price">$89.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product-card">
+              <img src="https://via.placeholder.com/300x300" alt="Product C">
+              <h3>Sample Product C</h3>
+              <p class="price">$129.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card card--muted">
+          <h4>Filters</h4>
+          <p>Category / Price / Brand</p>
+        </div>
+      </aside>
+
+      <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: support@framerateshop.com</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">Facebook</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 FrameRate Parts. All rights reserved.</p>
+      </div>
+      </footer>
+
+      <a href="#top" class="back-to-top">⬆️ Top</a>
+    </div>
+
     <script src="index.js"></script>
   </body>
 </html>

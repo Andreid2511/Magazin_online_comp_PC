@@ -5,9 +5,8 @@
 * pagina home (contine o banda(ribbon) cu categoriile de produs)
 * login
 * profil user
-* pagina produse(template filtrat)
+* pagina produse(template filtrat, pe categorie/ cuvant cautat)
 * prezentare produs(template_pt_produs)
-* pagina search (template precedent + filtru cuvinte cautate)
 * pagina cosul_meu
 * pagina contact
 * pagina faq
