@@ -2,7 +2,7 @@
 session_start();
 require 'db.php';
 
-// 1. Security Check
+//Security Check
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: pagina_home.php");
     exit;
@@ -16,15 +16,14 @@ if (empty($cart)) {
     die("Error: Cart is empty.");
 }
 
-// 2. Start Transaction
 $pdo->beginTransaction();
 
 try {
-    // A. Update User Phone (Keep profile updated)
+    // Update User Phone (Keep profile updated)
     $stmt = $pdo->prepare("UPDATE users SET phone_number = ? WHERE user_id = ?");
     $stmt->execute([$_POST['phone'], $user_id]);
 
-    // B. Save Address for this specific order
+    // Save Address for this specific order
     $stmt = $pdo->prepare("INSERT INTO addresses (user_id, phone_number, country, city, street, zip_code) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([
         $user_id, 
@@ -36,7 +35,7 @@ try {
     ]);
     $address_id = $pdo->lastInsertId();
 
-    // C. Create Order
+    // Create Order
     $total_amount = 0;
     foreach ($cart as $item) {
         $total_amount += $item['price'] * $item['qty'];
@@ -46,7 +45,7 @@ try {
     $stmt->execute([$user_id, $address_id, $total_amount]);
     $order_id = $pdo->lastInsertId();
 
-    // D. Insert Order Items
+    // Insert Order Items
     $sql_item = "INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES (?, ?, ?, ?)";
     $stmt_item = $pdo->prepare($sql_item);
 
@@ -55,10 +54,9 @@ try {
         $stmt_item->execute([$order_id, $prod_id, $item['qty'], $item['price']]);
     }
 
-    // E. Commit
     $pdo->commit();
 
-    // F. REDIRECT BACK TO CART WITH SUCCESS FLAG
+    // REDIRECT BACK TO CART WITH SUCCESS FLAG
     header("Location: cosul_meu.php?success=1");
     exit;
 

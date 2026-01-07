@@ -1,5 +1,5 @@
 <?php
-session_start(); // <--- MUST BE THE FIRST LINE
+session_start();
 require 'db.php';
 ?>
 <!DOCTYPE html>
