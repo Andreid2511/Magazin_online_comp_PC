@@ -1,6 +1,32 @@
 <?php
 session_start();
 require 'db.php';
+
+// Specific Featured Products
+$featured_names = [
+    'GeForce RTX 5090',          
+    'AMD Ryzen 9 7950X',          
+    '32GB DDR5 RAM Kit',          
+    'MSI MAG B650 Tomahawk', 
+    'Samsung 990 PRO 2TB',        
+    'Fractal Design North'        
+];
+
+// Create placeholders for the SQL IN clause (?,?,...)
+$placeholders = implode(',', array_fill(0, count($featured_names), '?'));
+
+$sql = "SELECT p.*, c.slug as category_slug 
+        FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.category_id 
+        WHERE p.name IN ($placeholders)
+        ORDER BY FIELD(p.name, " . implode(',', array_fill(0, count($featured_names), '?')) . ")";
+
+// Twice where and order by, so merge params
+$params = array_merge($featured_names, $featured_names);
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$featured_products = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +49,10 @@ require 'db.php';
             <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
           <div class="container">
-            <input name="searchbox" id="sb" type="text" class="search-box" placeholder="Search..">
-            <button>Cauta</button>
+            <form action="produse.php" method="GET" style="display:flex;">
+                <input name="search" id="sb" type="text" class="search-box" placeholder="Search..">
+                <button type="submit" class="search-btn">Cauta</button>
+            </form>
           </div>
           <div class="container">
             <?php if(isset($_SESSION['user_name'])): ?>
@@ -58,22 +86,22 @@ require 'db.php';
         <h2>Shop by Category</h2>
         <div class="cards-grid">
           <div class="card">
-            <img src="https://via.placeholder.com/200x200" alt="Processors">
+            <img src="images/cpu_category.jpg" alt="Processors">
             <h3>Processors</h3>
-            <a href="produse.php?category=processors" class="category-link">View All</a>
+            <a href="produse.php?category=cpu" class="category-link">View All</a>
           </div>
           <div class="card">
-            <img src="https://via.placeholder.com/200x200" alt="Graphics Cards">
+            <img src="images/gpu_category.jpg" alt="Graphics Cards">
             <h3>Graphics Cards</h3>
             <a href="produse.php?category=gpu" class="category-link">View All</a>
           </div>
           <div class="card">
-            <img src="https://via.placeholder.com/200x200" alt="Memory">
+            <img src="images/ram_category.jpg" alt="Memory">
             <h3>Memory</h3>
             <a href="produse.php?category=memory" class="category-link">View All</a>
           </div>
           <div class="card">
-            <img src="https://via.placeholder.com/200x200" alt="Storage">
+            <img src="images/storage_category.jpg" alt="Storage">
             <h3>Storage</h3>
             <a href="produse.php?category=storage" class="category-link">View All</a>
           </div>
@@ -83,27 +111,35 @@ require 'db.php';
       <section class="featured-products">
         <h2>Featured Products</h2>
         <div class="product-list">
-          <div class="card" data-product-id="rtx4090-oc" data-product-category="gpu">
-            <div class="product-badge">New</div>
-            <img src="../images/rtx_4090_oc.jpg" alt="RTX 4090 Gaming OC" data-product-image="rtx4090-oc.jpg">
-            <h3 data-product-title="RTX 4090 Gaming OC">RTX 4090 Gaming OC</h3>
-            <p class="price" data-product-price="1999.99">$1999.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-          <div class="card" data-product-id="ryzen-7950x" data-product-category="cpu">
-            <div class="product-badge">Popular</div>
-            <img src="https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x.jpg" alt="AMD Ryzen 9 7950X" data-product-image="ryzen-7950x.jpg">
-            <h3 data-product-title="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X</h3>
-            <p class="price" data-product-price="699.99">$699.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-          <div class="card" data-product-id="ddr5-32gb" data-product-category="memory">
-            <div class="product-badge">Sale</div>
-            <img src="https://s13emagst.akamaized.net/products/46229/46228451/images/res_2687de85a666c87c33e7b89a3736072d.jpg?width=720&height=720&hash=58135D6032B54C3621C8A5428365951E" alt="32GB DDR5 RAM Kit" data-product-image="ddr5-32gb.jpg">
-            <h3 data-product-title="32GB DDR5 RAM Kit">32GB DDR5 RAM Kit</h3>
-            <p class="price" data-product-price="199.99">$199.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
+          
+          <?php foreach ($featured_products as $product): ?>
+            <div class="card" 
+                 data-product-id="<?= $product['product_id'] ?>" 
+                 data-product-category="<?= htmlspecialchars($product['category_slug']) ?>">
+              
+              <?php if(!empty($product['badge_label'])): ?>
+                  <div class="product-badge"><?= htmlspecialchars($product['badge_label']) ?></div>
+              <?php endif; ?>
+
+              <a href="prezentare_produs.php?product=<?= $product['product_id'] ?>" class="card-link">
+                  <?php $img = !empty($product['image_url']) ? "images/" . htmlspecialchars($product['image_url']) : "https://via.placeholder.com/200"; ?>
+                  <img src="<?= $img ?>" 
+                       alt="<?= htmlspecialchars($product['name']) ?>" 
+                       data-product-image="<?= $img ?>">
+                  
+                  <h3 data-product-title="<?= htmlspecialchars($product['name']) ?>">
+                      <?= htmlspecialchars($product['name']) ?>
+                  </h3>
+                  
+                  <p class="price" data-product-price="<?= $product['price'] ?>">
+                      $<?= number_format($product['price'], 2) ?>
+                  </p>
+              </a>
+
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          <?php endforeach; ?>
+
         </div>
       </section>
 

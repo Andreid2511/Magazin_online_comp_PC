@@ -1,6 +1,36 @@
 <?php
 session_start();
 require 'db.php';
+
+$msg = "";
+$msgClass = "";
+
+// Handle Form Submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $subject = trim($_POST['subject']);
+    $message = trim($_POST['message']);
+
+    if (!empty($name) && !empty($email) && !empty($message)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
+            if ($stmt->execute([$name, $email, $subject, $message])) {
+                $msg = "Message sent successfully! We will contact you soon.";
+                $msgClass = "success";
+            } else {
+                $msg = "Error sending message. Please try again.";
+                $msgClass = "error";
+            }
+        } catch (PDOException $e) {
+            $msg = "Database Error: " . $e->getMessage();
+            $msgClass = "error";
+        }
+    } else {
+        $msg = "Please fill in all required fields.";
+        $msgClass = "error";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +54,7 @@ require 'db.php';
           </div>
           <div class="container">
             <input name="searchbox" id="sb" type="text" class="search-box" placeholder="Search..">
-            <button>Cauta</button>
+            <button class="search-btn">Cauta</button>
           </div>
           <div class="container">
             <?php if(isset($_SESSION['user_name'])): ?>
@@ -37,10 +67,10 @@ require 'db.php';
         </div>
 
         <nav class="nav-menu">
-          <a class="active" href="pagina_home.php">Home</a>
+          <a href="pagina_home.php">Home</a>
           <a href="produse.php">Products</a>
           <a href="about.php">About</a>
-          <a href="contact.php">Contact</a>
+          <a class="active" href="contact.php">Contact</a>
           <a href="faq.php">FAQ</a>
         </nav>
       </header>
@@ -49,7 +79,12 @@ require 'db.php';
         <div class="container" style="max-width: 40rem; margin: 2rem auto;">
           <div class="box" style="padding:2rem 2.5rem;">
             <h1 style="text-align:center; margin-bottom:1.5rem;">Contact Us</h1>
-            <form class="contact-form" style="margin-bottom:2rem;">
+            
+            <?php if($msg): ?>
+                <div class="alert <?= $msgClass ?>"><?= htmlspecialchars($msg) ?></div>
+            <?php endif; ?>
+
+            <form class="contact-form" action="contact.php" method="POST" style="margin-bottom:2rem;">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -68,17 +103,21 @@ require 'db.php';
               </div>
               <button type="submit" class="btn" style="width:100%;margin-top:1rem;">Send Message</button>
             </form>
+
             <hr style="margin:2rem 0;">
+            
             <div class="contact-details" style="display:flex; flex-direction:column; gap:1rem; align-items:center;">
               <div class="contact-item"><strong>Email:</strong> support@framerateshop.com</div>
               <div class="contact-item"><strong>Phone:</strong> +40 123 456 789</div>
               <div class="contact-item"><strong>Address:</strong> 123 Gaming Street, Bucharest, Romania</div>
             </div>
+            
             <div class="social-links" style="margin:2rem 0; text-align:center;">
               <a href="https://facebook.com/framerateparts" class="social-link">Facebook</a>
               <a href="https://twitter.com/framerateparts" class="social-link">Twitter</a>
               <a href="https://instagram.com/framerateparts" class="social-link">Instagram</a>
             </div>
+            
             <div class="map-placeholder" style="margin-top:1rem; text-align:center;">
               <img src="https://via.placeholder.com/600x300" alt="Location Map" style="max-width:100%; border-radius:.5rem; box-shadow:0 2px 10px rgba(0,0,0,.08);">
             </div>
