@@ -43,27 +43,46 @@ $orders = $orderStmt->fetchAll();
     <div class="page-grid">
       <header id="top">
         <div class="top_container">
-          <div class="container">
+          <div class="header-col-logo">
             <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
-          <div class="container">
-            <form action="produse.php" method="GET" style="display:flex;">
-                <input name="search" id="sb" type="text" class="search-box" placeholder="Search..">
+          
+          <div class="header-col-search">
+            <form action="produse.php" method="GET">
+                <input name="search" id="sb" type="text" class="search-box" placeholder="Search..." 
+                       value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                 <button type="submit" class="search-btn">Cauta</button>
             </form>
           </div>
-          <div class="container">
-            <a href="profil.php" class="social-link">Hello, <?= htmlspecialchars($user['full_name']) ?></a>
-            <a href="cosul_meu.php" class="social-link">Cosul Meu</a>
+
+          <div class="header-col-user">
+            <div class="user-menu">
+              <?php if(isset($_SESSION['user_name'])): ?>
+                <a href="profil.php" class="header-btn">
+                  <span class="icon">👤</span> 
+                  <span><?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                </a>
+              <?php else: ?>
+                <a href="login.php" class="header-btn">
+                  <span class="icon">👤</span> 
+                  <span>Login</span>
+                </a>
+              <?php endif; ?>
+              
+              <a href="cosul_meu.php" class="header-btn">
+                <span class="icon">🛒</span> 
+                <span>Cart</span>
+              </a>
+            </div>
           </div>
         </div>
 
         <nav class="nav-menu">
-          <a href="pagina_home.php">Home</a>
-          <a href="produse.php">Products</a>
-          <a href="about.php">About</a>
-          <a href="contact.php">Contact</a>
-          <a href="faq.php">FAQ</a>
+          <a href="pagina_home.php" class="<?= basename($_SERVER['PHP_SELF']) == 'pagina_home.php' ? 'active' : '' ?>">Home</a>
+          <a href="produse.php" class="<?= basename($_SERVER['PHP_SELF']) == 'produse.php' ? 'active' : '' ?>">Products</a>
+          <a href="about.php" class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>">About</a>
+          <a href="contact.php" class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>">Contact</a>
+          <a href="faq.php" class="<?= basename($_SERVER['PHP_SELF']) == 'faq.php' ? 'active' : '' ?>">FAQ</a>
         </nav>
       </header>
 
