@@ -65,7 +65,7 @@ if (!$product) {
           <p class="lead"><?= htmlspecialchars($product['description']) ?></p>
           <p class="price" id="product-price">$<?= htmlspecialchars($product['price']) ?></p>
           
-          <div class="card" style="border:none; background:transparent; padding:0; text-align:left;"
+          <div class="card-add" style="border:none; background:transparent; padding:0; text-align:left;"
                data-product-id="<?= $product['product_id'] ?>"
                data-product-title="<?= htmlspecialchars($product['name']) ?>"
                data-product-price="<?= $product['price'] ?>"

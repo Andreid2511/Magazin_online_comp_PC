@@ -1,51 +1,93 @@
 <?php
-// produsele.php - Updated for Clickable Cards & Smart Filters
+// produsele.php - Updated for Sorting, Pagination & Matrix Grid
 session_start();
 require 'db.php';
 
-// 1. Build Query
-$sql = "SELECT p.*, c.slug as category_slug FROM products p 
-        LEFT JOIN categories c ON p.category_id = c.category_id 
-        WHERE 1=1";
+// --- 1. INITIALIZE PARAMETERS ---
 $params = [];
+$where_clauses = ["1=1"]; // Default true condition
 
-// 2. Filter Logic
-$has_active_filters = false; // Flag to decide if we show "Clear Filters"
+// --- 2. BUILD FILTERS ---
 
+// Search
 if (!empty($_GET['search'])) {
-    $sql .= " AND p.name LIKE ?";
+    $where_clauses[] = "p.name LIKE ?";
     $params[] = "%" . $_GET['search'] . "%";
-    $has_active_filters = true;
 }
 
+// Category
 if (!empty($_GET['category'])) {
-    $sql .= " AND c.slug = ?";
+    $where_clauses[] = "c.slug = ?";
     $params[] = $_GET['category'];
-    $has_active_filters = true;
 }
 
+// Price
 if (!empty($_GET['price'])) {
     if ($_GET['price'] == 'under-100') {
-        $sql .= " AND p.price < 100";
+        $where_clauses[] = "p.price < 100";
     } elseif ($_GET['price'] == '100-500') {
-        $sql .= " AND p.price BETWEEN 100 AND 500";
+        $where_clauses[] = "p.price BETWEEN 100 AND 500";
     } elseif ($_GET['price'] == 'over-500') {
-        $sql .= " AND p.price > 500";
-    }
-    // Only mark as active filter if it's not "all"
-    if($_GET['price'] !== 'all') {
-        $has_active_filters = true;
+        $where_clauses[] = "p.price > 500";
     }
 }
 
-// 3. Fetch Data
+// --- 3. SORTING LOGIC ---
+$sort_option = $_GET['sort'] ?? 'featured';
+$order_sql = "ORDER BY p.product_id DESC"; // Default (Newest/Featured)
+
+if ($sort_option == 'price_asc') {
+    $order_sql = "ORDER BY p.price ASC";
+} elseif ($sort_option == 'price_desc') {
+    $order_sql = "ORDER BY p.price DESC";
+}
+
+// --- 4. PAGINATION LOGIC ---
+$limit = 40; // Items per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+$offset = ($page - 1) * $limit;
+
+// Combine WHERE clauses
+$where_sql = implode(" AND ", $where_clauses);
+
+// A. Get Total Count (For Pagination)
+$count_sql = "SELECT COUNT(*) FROM products p 
+              LEFT JOIN categories c ON p.category_id = c.category_id 
+              WHERE $where_sql";
+try {
+    $stmt = $pdo->prepare($count_sql);
+    $stmt->execute($params);
+    $total_items = $stmt->fetchColumn();
+    $total_pages = ceil($total_items / $limit);
+} catch (PDOException $e) {
+    echo "Error counting products: " . $e->getMessage();
+    exit;
+}
+
+// B. Get Actual Products
+$sql = "SELECT p.*, c.slug as category_slug FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.category_id 
+        WHERE $where_sql 
+        $order_sql 
+        LIMIT $limit OFFSET $offset";
+
 try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $products = $stmt->fetchAll();
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+    echo "Error fetching products: " . $e->getMessage();
     exit;
+}
+
+// Helper to keep URL params when clicking pages
+function get_url($new_page = null) {
+    $query = $_GET;
+    if ($new_page !== null) {
+        $query['page'] = $new_page;
+    }
+    return '?' . http_build_query($query);
 }
 ?>
 
@@ -67,7 +109,7 @@ try {
             </div>
             <div class="container">
               <form action="produse.php" method="GET" style="display:flex;">
-                  <input name="search" id="sb" type="text" class="search-box" placeholder="Search..">
+                  <input name="search" id="sb" type="text" class="search-box" placeholder="Search.." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                   <button type="submit" class="search-btn">Cauta</button>
               </form>
             </div>
@@ -84,15 +126,34 @@ try {
           <nav class="nav-menu">
             <a href="pagina_home.php">Home</a>
             <a class="active" href="produse.php">Products</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="faq.html">FAQ</a>
+            <a href="about.php">About</a>
+            <a href="contact.php">Contact</a>
+            <a href="faq.php">FAQ</a>
           </nav>
       </header>
 
       <main id="products-main">
         <section class="featured-products">
-          <h2>Our Products</h2>
+            
+          <div class="products-header">
+              <h2>Our Products</h2>
+              
+              <form action="produse.php" method="GET" class="sort-form">
+                  <?php foreach($_GET as $key => $val): ?>
+                      <?php if($key != 'sort' && $key != 'page'): ?>
+                          <input type="hidden" name="<?= htmlspecialchars($key) ?>" value="<?= htmlspecialchars($val) ?>">
+                      <?php endif; ?>
+                  <?php endforeach; ?>
+
+                  <label for="sort" style="margin-right: 10px;">Order by:</label>
+                  <select name="sort" id="sort" onchange="this.form.submit()">
+                      <option value="featured" <?= $sort_option == 'featured' ? 'selected' : '' ?>>Featured</option>
+                      <option value="price_asc" <?= $sort_option == 'price_asc' ? 'selected' : '' ?>>Price: Low to High</option>
+                      <option value="price_desc" <?= $sort_option == 'price_desc' ? 'selected' : '' ?>>Price: High to Low</option>
+                  </select>
+              </form>
+          </div>
+          
           <button id="filter_button"><img src="images/filter.png"></button>
           
           <div class="product-list">
@@ -105,16 +166,17 @@ try {
                   
                   <a href="prezentare_produs.php?product=<?= $product['product_id'] ?>" class="card-link">
                       
-                      <img src="images/<?= htmlspecialchars($product['image_url']) ?>" 
+                      <?php $img = !empty($product['image_url']) ? "images/".htmlspecialchars($product['image_url']) : "https://via.placeholder.com/200"; ?>
+                      <img src="<?= $img ?>" 
                            alt="<?= htmlspecialchars($product['name']) ?>" 
-                           data-product-image="images/<?= htmlspecialchars($product['image_url']) ?>">
+                           data-product-image="<?= $img ?>">
                       
                       <h3 data-product-title="<?= htmlspecialchars($product['name']) ?>">
                           <?= htmlspecialchars($product['name']) ?>
                       </h3>
                       
                       <p class="price" data-product-price="<?= $product['price'] ?>">
-                          $<?= $product['price'] ?>
+                          $<?= number_format($product['price'], 2) ?>
                       </p>
                   </a>
                   <button class="add-to-cart">Add to Cart</button>
@@ -122,9 +184,28 @@ try {
                 </div>
                 <?php endforeach; ?>
             <?php else: ?>
-              <p>No products found matching your selection.</p>
+              <p style="grid-column: 1/-1; text-align:center;">No products found matching your selection.</p>
             <?php endif; ?>
           </div>
+
+          <?php if ($total_pages > 1): ?>
+          <div class="pagination">
+              <?php if ($page > 1): ?>
+                  <a href="<?= get_url($page - 1) ?>">&laquo; Prev</a>
+              <?php endif; ?>
+
+              <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                  <a href="<?= get_url($i) ?>" class="<?= $i == $page ? 'active' : '' ?>">
+                      <?= $i ?>
+                  </a>
+              <?php endfor; ?>
+
+              <?php if ($page < $total_pages): ?>
+                  <a href="<?= get_url($page + 1) ?>">Next &raquo;</a>
+              <?php endif; ?>
+          </div>
+          <?php endif; ?>
+
         </section>
       </main>
 
@@ -133,6 +214,9 @@ try {
           <h3>Filters</h3>
           
           <form action="produse.php" method="GET" id="filter-form">
+            <?php if(isset($_GET['sort'])): ?>
+                <input type="hidden" name="sort" value="<?= htmlspecialchars($_GET['sort']) ?>">
+            <?php endif; ?>
             
             <?php if(!empty($_GET['search'])): ?>
                 <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search']) ?>">
@@ -141,48 +225,36 @@ try {
             <div class="filter-group">
               <h4>Category</h4>
               <div class="filter-list">
-                <label class="filter-label">
-                  All <input type="radio" name="category" value="" <?= empty($_GET['category']) ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Processors <input type="radio" name="category" value="cpu" <?= (isset($_GET['category']) && $_GET['category'] == 'cpu') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Graphics Cards <input type="radio" name="category" value="gpu" <?= (isset($_GET['category']) && $_GET['category'] == 'gpu') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Memory <input type="radio" name="category" value="memory" <?= (isset($_GET['category']) && $_GET['category'] == 'memory') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Storage <input type="radio" name="category" value="storage" <?= (isset($_GET['category']) && $_GET['category'] == 'storage') ? 'checked' : '' ?>>
-                </label>
+                <label class="filter-label">All <input type="radio" name="category" value="" <?= empty($_GET['category']) ? 'checked' : '' ?>></label>
+                <label class="filter-label">Processors <input type="radio" name="category" value="cpu" <?= (isset($_GET['category']) && $_GET['category'] == 'cpu') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Graphics Cards <input type="radio" name="category" value="gpu" <?= (isset($_GET['category']) && $_GET['category'] == 'gpu') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Memory <input type="radio" name="category" value="memory" <?= (isset($_GET['category']) && $_GET['category'] == 'memory') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Storage <input type="radio" name="category" value="storage" <?= (isset($_GET['category']) && $_GET['category'] == 'storage') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Motherboards <input type="radio" name="category" value="motherboard" <?= (isset($_GET['category']) && $_GET['category'] == 'motherboard') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Power Supplies <input type="radio" name="category" value="psu" <?= (isset($_GET['category']) && $_GET['category'] == 'psu') ? 'checked' : '' ?>></label>
+                <label class="filter-label">PC Cases <input type="radio" name="category" value="case" <?= (isset($_GET['category']) && $_GET['category'] == 'case') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Cooling <input type="radio" name="category" value="cooler" <?= (isset($_GET['category']) && $_GET['category'] == 'cooler') ? 'checked' : '' ?>></label>
               </div>
             </div>
-            
-            <hr style="margin:15px 0; border:0; border-top:1px solid #444;">
             
             <div class="filter-group">
               <h4>Price</h4>
               <div class="filter-list">
-                <label class="filter-label">
-                  Any Price <input type="radio" name="price" value="all" <?= (empty($_GET['price']) || $_GET['price'] == 'all') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Under $100 <input type="radio" name="price" value="under-100" <?= (isset($_GET['price']) && $_GET['price'] == 'under-100') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  $100 - $500 <input type="radio" name="price" value="100-500" <?= (isset($_GET['price']) && $_GET['price'] == '100-500') ? 'checked' : '' ?>>
-                </label>
-                <label class="filter-label">
-                  Over $500 <input type="radio" name="price" value="over-500" <?= (isset($_GET['price']) && $_GET['price'] == 'over-500') ? 'checked' : '' ?>>
-                </label>
+                <label class="filter-label">Any Price <input type="radio" name="price" value="all" <?= (empty($_GET['price']) || $_GET['price'] == 'all') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Under $100 <input type="radio" name="price" value="under-100" <?= (isset($_GET['price']) && $_GET['price'] == 'under-100') ? 'checked' : '' ?>></label>
+                <label class="filter-label">$100 - $500 <input type="radio" name="price" value="100-500" <?= (isset($_GET['price']) && $_GET['price'] == '100-500') ? 'checked' : '' ?>></label>
+                <label class="filter-label">Over $500 <input type="radio" name="price" value="over-500" <?= (isset($_GET['price']) && $_GET['price'] == 'over-500') ? 'checked' : '' ?>></label>
               </div>
             </div>
 
             <br>
             <button type="submit" id="apply_filters" class="btn">Apply Filters</button>
 
-            <?php if($has_active_filters): ?>
+            <?php 
+               // Check if we have active filters to show Clear button
+               $active = !empty($_GET['category']) || !empty($_GET['search']) || (isset($_GET['price']) && $_GET['price'] != 'all');
+               if($active): 
+            ?>
                 <a href="produse.php" class="btn-clear">Clear Filters</a>
             <?php endif; ?>
           </form>
@@ -202,17 +274,8 @@ try {
       </footer>
       <a href="#top-products" class="back-to-top">⬆️ Top</a>
     </div>
-    
-    <script src="index.js"></script>
 
-    <script>
-        const form = document.getElementById('filter-form');
-        const applyBtn = document.getElementById('apply_filters');
-        
-        // Listen for any change inside the form (clicking any radio button)
-        form.addEventListener('change', function() {
-            applyBtn.style.display = 'block'; // Reveal the button
-        });
-    </script>
+    <script src="index.js"></script>
+    
   </body>
 </html>
