@@ -30,6 +30,7 @@ if (!$product) {
     <div class="page-grid">
       <header id="top">
         <div class="top_container">
+          
           <div class="header-col-logo">
             <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
@@ -45,10 +46,17 @@ if (!$product) {
           <div class="header-col-user">
             <div class="user-menu">
               <?php if(isset($_SESSION['user_name'])): ?>
+                
+                <a href="wishlist.php" class="header-btn">
+                  <span class="icon">♥</span> 
+                  <span>Wishlist</span>
+                </a>
+
                 <a href="profil.php" class="header-btn">
                   <span class="icon">👤</span> 
                   <span><?= htmlspecialchars($_SESSION['user_name']) ?></span>
                 </a>
+
               <?php else: ?>
                 <a href="login.php" class="header-btn">
                   <span class="icon">👤</span> 

@@ -275,6 +275,7 @@
     }
   });
 })();
+
 function fillAddress(data) {
   if (!data) return;
 
@@ -292,4 +293,39 @@ function fillAddress(data) {
   // Visual feedback
   // Scroll slightly down to form
   document.getElementById('checkout-form').scrollIntoView({ behavior: 'smooth' });
+}
+/*-- Accordion Logic --*/
+document.addEventListener('DOMContentLoaded', function () {
+  const headers = document.querySelectorAll('.accordion-header');
+
+  headers.forEach(header => {
+    header.addEventListener('click', () => {
+      const isActive = header.classList.contains('active');
+
+      headers.forEach(h => {
+        h.classList.remove('active');
+        h.nextElementSibling.style.maxHeight = null;
+      });
+
+      if (!isActive) {
+        header.classList.add('active');
+        const content = header.nextElementSibling;
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  });
+});
+// Wishlist Form Submission
+const wishlistForm = document.getElementById('wishlist-form');
+if (wishlistForm) {
+  wishlistForm.addEventListener('submit', function (e) {
+    const cart = FRCart.get();
+    if (Object.keys(cart).length === 0) {
+      e.preventDefault();
+      alert("Your cart is empty! Add items before saving a build.");
+      return;
+    }
+    // Inject cart data into the hidden input
+    document.getElementById('wishlist_cart_input').value = JSON.stringify(cart);
+  });
 }

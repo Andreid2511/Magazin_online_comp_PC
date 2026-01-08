@@ -42,6 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="page-grid">
       <header id="top">
         <div class="top_container">
+          
           <div class="header-col-logo">
             <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
@@ -57,10 +58,17 @@ if (isset($_SESSION['user_id'])) {
           <div class="header-col-user">
             <div class="user-menu">
               <?php if(isset($_SESSION['user_name'])): ?>
+                
+                <a href="wishlist.php" class="header-btn">
+                  <span class="icon">♥</span> 
+                  <span>Wishlist</span>
+                </a>
+
                 <a href="profil.php" class="header-btn">
                   <span class="icon">👤</span> 
                   <span><?= htmlspecialchars($_SESSION['user_name']) ?></span>
                 </a>
+
               <?php else: ?>
                 <a href="login.php" class="header-btn">
                   <span class="icon">👤</span> 
@@ -98,16 +106,23 @@ if (isset($_SESSION['user_id'])) {
           <div id="cart-items"></div>
           
           <div id="cart-summary" class="box" style="margin-top: 2rem;">
-            
-            <div class="flex" style="justify-content: space-between; align-items: center;">
+            <div class="flex" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
               <h3>Total: <span id="cart-total">$0.00</span></h3>
-              <div>
+              
+              <div style="display:flex; gap: 10px; flex-wrap:wrap;">
                   <button class="btn" onclick="FRCart.clear()" style="background:#ff4444; color:white;">Clear Cart</button>
                   
                   <?php if(isset($_SESSION['user_id'])): ?>
-                      <button id="btn-show-checkout" class="btn" style="background:#00c851; color:white; margin-left:10px;">Proceed to Checkout</button>
+                      <form id="wishlist-form" action="save_wishlist.php" method="POST" style="display:inline;">
+                          <input type="hidden" name="cart_data" id="wishlist_cart_input">
+                          <button type="submit" class="btn" style="background:#2D1A32; border:1px solid #FB8B24; color:#FB8B24;">
+                              ★ Save as Wishlist
+                          </button>
+                      </form>
+
+                      <button id="btn-show-checkout" class="btn" style="background:#00c851; color:white;">Proceed to Checkout</button>
                   <?php else: ?>
-                      <a href="login.php" class="btn" style="background:#FB8B24; margin-left:10px;">Login to Checkout</a>
+                      <a href="login.php" class="btn" style="background:#FB8B24;">Login to Checkout</a>
                   <?php endif; ?>
               </div>
             </div>

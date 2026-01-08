@@ -211,8 +211,8 @@ nav a.active {
 
 /* === Top Header Layout === */
 .top_container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 600px) 1fr;
   align-items: center;
   padding: 0.8rem 1rem;
   gap: 1rem;
@@ -221,11 +221,12 @@ nav a.active {
 }
 
 .header-col-logo {
-  flex: 1;
+  justify-self: start;
 }
 
 .header-col-search {
-  flex: 2;
+  justify-self: center;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -233,7 +234,7 @@ nav a.active {
 .header-col-search form {
   display: flex;
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
 }
 
 .header-col-search input {
@@ -248,9 +249,7 @@ nav a.active {
 }
 
 .header-col-user {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  justify-self: end;
 }
 
 .user-menu {
@@ -877,6 +876,140 @@ footer {
   width: 100%;
 }
 
+/* === Accordion Styles === */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  background: #2D1A32;
+  border: 1px solid #444;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.accordion-item:hover {
+  border-color: #FB8B24;
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 1.2rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #D0CFEC;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.accordion-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #FB8B24;
+}
+
+.accordion-header.active {
+  background: rgba(251, 139, 36, 0.1);
+  color: #FB8B24;
+  border-bottom: 1px solid #444;
+}
+
+.accordion-header::after {
+  content: '+';
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 400;
+  margin-left: 10px;
+  transition: transform 0.3s;
+}
+
+.accordion-header.active::after {
+  content: '−';
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: #26142a;
+}
+
+.accordion-content p {
+  padding: 1.2rem;
+  margin: 0;
+  color: #D0CFEC;
+  line-height: 1.6;
+}
+
+/*Wishlist Accordion Header Info*/
+.accordion-header .w-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.accordion-header .w-meta-header {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.accordion-header .w-price-header {
+  color: #FB8B24;
+  font-weight: 700;
+}
+
+.w-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  border-top: 1px solid #444;
+}
+
+.w-item-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #444;
+  font-size: 0.95rem;
+}
+
+.w-item-name {
+  color: #D0CFEC;
+}
+
+.w-item-qty {
+  color: #888;
+  margin-right: 10px;
+}
+
+.w-item-price {
+  color: #fff;
+  font-weight: bold;
+}
+
+.w-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+/* === Responsive Adjustments === */
 @media (max-width: 56em) {
   .hero h1 {
     font-size: 2rem;
