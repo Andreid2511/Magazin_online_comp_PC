@@ -329,3 +329,40 @@ if (wishlistForm) {
     document.getElementById('wishlist_cart_input').value = JSON.stringify(cart);
   });
 }
+
+/* Enlarge Product Image Modal */
+document.addEventListener('DOMContentLoaded', function () {
+  const productImg = document.getElementById('product-img');
+
+  if (productImg) {
+
+    const modal = document.createElement('div');
+    modal.className = 'image-modal';
+
+    const modalImg = document.createElement('img');
+    modalImg.className = 'image-modal-content';
+    modalImg.alt = "Enlarged view";
+
+    modal.appendChild(modalImg);
+    document.body.appendChild(modal);
+
+    productImg.addEventListener('click', function () {
+      modalImg.src = this.src;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    modal.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+});
