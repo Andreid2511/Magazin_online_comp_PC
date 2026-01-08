@@ -45,6 +45,7 @@ $featured_products = $stmt->fetchAll();
     <div class="page-grid">
       <header id="top">
         <div class="top_container">
+          
           <div class="header-col-logo">
             <a href="pagina_home.php"><h1 class="title">FrameRate Parts</h1></a>
           </div>
@@ -60,10 +61,17 @@ $featured_products = $stmt->fetchAll();
           <div class="header-col-user">
             <div class="user-menu">
               <?php if(isset($_SESSION['user_name'])): ?>
+                
+                <a href="wishlist.php" class="header-btn">
+                  <span class="icon">♥</span> 
+                  <span>Wishlist</span>
+                </a>
+
                 <a href="profil.php" class="header-btn">
                   <span class="icon">👤</span> 
                   <span><?= htmlspecialchars($_SESSION['user_name']) ?></span>
                 </a>
+
               <?php else: ?>
                 <a href="login.php" class="header-btn">
                   <span class="icon">👤</span> 
@@ -78,6 +86,15 @@ $featured_products = $stmt->fetchAll();
             </div>
           </div>
         </div>
+
+        <nav class="nav-menu">
+          <a href="pagina_home.php" class="<?= basename($_SERVER['PHP_SELF']) == 'pagina_home.php' ? 'active' : '' ?>">Home</a>
+          <a href="produse.php" class="<?= basename($_SERVER['PHP_SELF']) == 'produse.php' ? 'active' : '' ?>">Products</a>
+          <a href="about.php" class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>">About</a>
+          <a href="contact.php" class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>">Contact</a>
+          <a href="faq.php" class="<?= basename($_SERVER['PHP_SELF']) == 'faq.php' ? 'active' : '' ?>">FAQ</a>
+        </nav>
+      </header>
 
         <nav class="nav-menu">
           <a href="pagina_home.php" class="<?= basename($_SERVER['PHP_SELF']) == 'pagina_home.php' ? 'active' : '' ?>">Home</a>
