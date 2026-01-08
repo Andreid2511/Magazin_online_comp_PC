@@ -96,15 +96,6 @@ $featured_products = $stmt->fetchAll();
         </nav>
       </header>
 
-        <nav class="nav-menu">
-          <a href="pagina_home.php" class="<?= basename($_SERVER['PHP_SELF']) == 'pagina_home.php' ? 'active' : '' ?>">Home</a>
-          <a href="produse.php" class="<?= basename($_SERVER['PHP_SELF']) == 'produse.php' ? 'active' : '' ?>">Products</a>
-          <a href="about.php" class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>">About</a>
-          <a href="contact.php" class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>">Contact</a>
-          <a href="faq.php" class="<?= basename($_SERVER['PHP_SELF']) == 'faq.php' ? 'active' : '' ?>">FAQ</a>
-        </nav>
-      </header>
-
       <main>
       <section class="hero">
         <div class="hero-content">
@@ -118,25 +109,60 @@ $featured_products = $stmt->fetchAll();
         <h2>Shop by Category</h2>
         <div class="cards-grid">
           <div class="card">
-            <img src="images/cpu_category.jpg" alt="Processors">
-            <h3>Processors</h3>
-            <a href="produse.php?category=cpu" class="category-link">View All</a>
+            <a href="produse.php?category=cpu">
+              <img src="images/cpu_category.jpg" alt="Processors">
+              <h3>Processors</h3>
+              View All
+            </a>
           </div>
           <div class="card">
-            <img src="images/gpu_category.jpg" alt="Graphics Cards">
-            <h3>Graphics Cards</h3>
-            <a href="produse.php?category=gpu" class="category-link">View All</a>
+            <a href="produse.php?category=gpu">
+              <img src="images/gpu_category.jpg" alt="Graphics Cards">
+              <h3>Graphics Cards</h3>
+              View All
+            </a>
           </div>
           <div class="card">
-            <img src="images/ram_category.jpg" alt="Memory">
-            <h3>Memory</h3>
-            <a href="produse.php?category=memory" class="category-link">View All</a>
+            <a href="produse.php?category=memory">
+              <img src="images/ram_category.jpg" alt="Memory">
+              <h3>Memory</h3>
+              View All
+            </a>
           </div>
           <div class="card">
-            <img src="images/storage_category.jpg" alt="Storage">
-            <h3>Storage</h3>
-            <a href="produse.php?category=storage" class="category-link">View All</a>
+            <a href="produse.php?category=storage">
+              <img src="images/storage_category.jpg" alt="Storage">
+              <h3>Storage</h3>
+              View All
+            </a>
           </div>
+          <div class="card">
+            <a href="produse.php?category=motherboard">
+              <img src="images/motherboard_category.jpg" alt="Motherboards">
+              <h3>Motherboards</h3>
+              View All
+            </a>
+          </div>
+          <div class="card">
+            <a href="produse.php?category=case">
+              <img src="images/case_category.jpg" alt="Computer Cases">
+              <h3>Computer Cases</h3>
+              View All
+            </a>
+          </div>
+          <div class="card">
+            <a href="produse.php?category=psu">
+              <img src="images/psu_category.jpg" alt="Power Supplies">
+              <h3>Power Supplies</h3>
+              View All
+            </a>
+          </div>
+          <div class="card">
+            <a href="produse.php?category=cooler">
+              <img src="images/cooler_category.jpg" alt="Cooling Solutions">
+              <h3>Cpu Cooling and AIOs</h3>
+              View All
+            </a>  
         </div>
       </section>
 
