@@ -16,7 +16,7 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// Fetch Wishlists & Their Items (Grouped)
+// Fetch Wishlists & Their Items
 $stmt = $pdo->prepare("
     SELECT w.wishlist_id, w.title, w.notes, w.created_at,
            p.product_id, p.name as product_name, p.price, p.image_url, wi.quantity
@@ -48,7 +48,7 @@ foreach ($raw_data as $row) {
             'id'    => $row['product_id'],
             'title' => $row['product_name'],
             'price' => $row['price'],
-            'image' => $row['image_url'], // Kept for JS cart logic
+            'image' => $row['image_url'], // JS cart logic
             'qty'   => $row['quantity']
         ];
         $wishlists[$id]['total'] += ($row['price'] * $row['quantity']);
@@ -59,6 +59,7 @@ foreach ($raw_data as $row) {
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>My Wishlists - FrameRate Parts</title>
     <link rel="stylesheet" href="./index.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -152,10 +153,10 @@ foreach ($raw_data as $row) {
                             </button>
 
                             <div class="accordion-content">
-                                <div style="padding: 1.5rem;">
+                                <div class="wishlist-content-inner">
                                     
                                     <?php if(!empty($w['notes'])): ?>
-                                        <div style="background:#221226; padding:0.8rem; border-left:3px solid #FB8B24; margin-bottom:1rem; font-style:italic; color:#ccc;">
+                                        <div class="wishlist-note">
                                             "<?= htmlspecialchars($w['notes']) ?>"
                                         </div>
                                     <?php endif; ?>

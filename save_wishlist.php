@@ -47,6 +47,7 @@ $cart_data_input = $_POST['cart_data'] ?? '';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Save Wishlist - FrameRate Parts</title>
     <link rel="stylesheet" href="./index.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">

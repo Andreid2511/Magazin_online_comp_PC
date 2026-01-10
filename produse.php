@@ -234,6 +234,7 @@ function get_url($new_page = null) {
 
       <aside id="products-aside">
         <div class="card card--muted filter-height">
+          <button id="close_filters" class="close-filters-btn" aria-label="Close Filters">✕</button>
           <h3>Filters</h3>
           
           <form action="produse.php" method="GET" id="filter-form">

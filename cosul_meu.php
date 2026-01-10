@@ -34,6 +34,7 @@ if (isset($_SESSION['user_id'])) {
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Shopping Cart - FrameRate Parts</title>
     <link rel="stylesheet" href="./index.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -106,12 +107,12 @@ if (isset($_SESSION['user_id'])) {
           <div id="cart-items"></div>
           
           <div id="cart-summary" class="box" style="margin-top: 2rem;">
-            <div class="flex" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            
+            <div class="cart-summary-flex">
               <h3>Total: <span id="cart-total">$0.00</span></h3>
               
-              <div style="display:flex; gap: 10px; flex-wrap:wrap;">
+              <div class="cart-buttons-group">
                   <button class="btn" onclick="FRCart.clear()" style="background:#ff4444; color:white;">Clear Cart</button>
-                  
                   <?php if(isset($_SESSION['user_id'])): ?>
                       <form id="wishlist-form" action="save_wishlist.php" method="POST" style="display:inline;">
                           <input type="hidden" name="cart_data" id="wishlist_cart_input">
@@ -119,7 +120,6 @@ if (isset($_SESSION['user_id'])) {
                               ★ Save as Wishlist
                           </button>
                       </form>
-
                       <button id="btn-show-checkout" class="btn" style="background:#00c851; color:white;">Proceed to Checkout</button>
                   <?php else: ?>
                       <a href="login.php" class="btn" style="background:#FB8B24;">Login to Checkout</a>

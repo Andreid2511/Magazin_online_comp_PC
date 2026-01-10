@@ -3,7 +3,7 @@
 
   const CART_KEY = 'fr_cart_v1';
 
-  // ---HELPER FUNCTIONS---
+  // --- HELPER FUNCTIONS ---
   function qs(sel, ctx = document) { return ctx.querySelector(sel); }
   function qsa(sel, ctx = document) { return Array.from(ctx.querySelectorAll(sel)); }
 
@@ -26,7 +26,7 @@
     return Object.values(cart).reduce((sum, it) => sum + (it.qty || 0), 0);
   }
 
-  // ---BADGE LOGIC---
+  // --- BADGE LOGIC ---
   function ensureCartBadge() {
     const cartLink = qs('a[href$="cosul_meu.php"]') || qs('a[href*="cosul_meu"]');
     if (!cartLink) return null;
@@ -57,7 +57,7 @@
     badge.style.display = total > 0 ? 'inline-block' : 'none';
   }
 
-  // ---ADD TO CART LOGIC---
+  // --- ADD TO CART LOGIC ---
   function attachAddToCart() {
     const buttons = qsa('button.add-to-cart, .add-to-cart');
     if (!buttons.length) return;
@@ -71,27 +71,14 @@
         const card = newBtn.closest('.card') || newBtn.closest('.product-card') || newBtn.parentElement;
         if (!card) return;
 
-        let title = card.getAttribute('data-product-title');
-        if (!title) {
-          const el = qs('[data-product-title]', card) || qs('h3', card);
-          title = el ? (el.getAttribute('data-product-title') || el.textContent.trim()) : 'Product';
-        }
+        const titleEl = qs('[data-product-title]', card) || qs('h3', card);
+        const priceEl = qs('[data-product-price]', card) || qs('.price', card);
+        const imgEl = qs('[data-product-image]', card) || qs('img', card);
 
-        let price = card.getAttribute('data-product-price');
-        if (!price) {
-          const el = qs('[data-product-price]', card) || qs('.price', card);
-          price = el ? (el.getAttribute('data-product-price') || el.textContent.replace(/[^0-9.,-]/g, '').trim()) : '0';
-        }
-
-        let image = card.getAttribute('data-product-image');
-        if (!image) {
-          const el = qs('[data-product-image]', card) || qs('img', card);
-          image = el ? (el.getAttribute('data-product-image') || el.getAttribute('src')) : '';
-        }
-
-        let id = card.getAttribute('data-product-id');
-        // Fallback ID generation if missing
-        if (!id) id = title.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const title = titleEl ? (titleEl.getAttribute('data-product-title') || titleEl.textContent.trim()) : 'Product';
+        const price = priceEl ? (priceEl.getAttribute('data-product-price') || priceEl.textContent.replace(/[^0-9.,-]/g, '').trim()) : '0';
+        const image = imgEl ? (imgEl.getAttribute('data-product-image') || imgEl.getAttribute('src')) : '';
+        const id = card.getAttribute('data-product-id') || title.toLowerCase().replace(/[^a-z0-9]/g, '');
 
         const cart = loadCart();
         if (!cart[id]) {
@@ -104,7 +91,6 @@
 
         if (window.renderCart) window.renderCart();
 
-        // Feedback Animation
         const originalText = newBtn.textContent;
         newBtn.textContent = 'Added ✓';
         newBtn.disabled = true;
@@ -116,7 +102,7 @@
     });
   }
 
-  // ---CART PAGE RENDERING---
+  // --- CART PAGE RENDERING ---
   function setupCartPage() {
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
@@ -140,25 +126,23 @@
         const imgUrl = item.image || 'https://via.placeholder.com/80?text=No+Img';
 
         return `
-          <div class="box" style="margin-bottom: 1rem;">
-            <div class="flex" style="justify-content: space-between; align-items: center;">
-              
-              <a href="prezentare_produs.php?product=${item.id}" style="display: flex; gap: 1.5rem; align-items: center; flex: 1; text-decoration: none; color: inherit;">
-                <img src="${imgUrl}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: contain; background: rgba(0,0,0,0.2); border-radius: 4px; border: 1px solid #444;">
+          <div class="box cart-item-box">
+            <div class="cart-item-row">
+              <a href="prezentare_produs.php?product=${item.id}" class="cart-item-link">
+                <img src="${imgUrl}" alt="${item.title}" class="cart-item-img">
                 <div>
-                  <h3 style="margin: 0 0 0.5rem 0; color: #FB8B24;">${item.title}</h3>
-                  <p style="margin: 0; color: #D0CFEC;">$${price.toFixed(2)} x ${item.qty}</p>
+                  <h3 class="cart-item-title">${item.title}</h3>
+                  <p class="cart-item-desc">$${price.toFixed(2)} x ${item.qty}</p>
                 </div>
               </a>
-
-              <div class="flex" style="gap: 1rem; align-items: center; justify-content: flex-end;">
-                <p style="margin:0; font-weight:bold; font-size:1.1rem; min-width:80px; text-align:right;">$${itemTotal.toFixed(2)}</p>
-                <div style="display:flex; align-items:center; gap:5px;">
+              <div class="cart-item-right">
+                <p class="cart-item-total">$${itemTotal.toFixed(2)}</p>
+                <div class="cart-qty-group">
                     <button class="btn" onclick="adjustQty('${item.id}', ${item.qty - 1})" style="padding: 0.4rem 0.8rem;">-</button>
                     <span style="display:inline-block; width:25px; text-align:center;">${item.qty}</span>
                     <button class="btn" onclick="adjustQty('${item.id}', ${item.qty + 1})" style="padding: 0.4rem 0.8rem;">+</button>
                 </div>
-                <button class="btn" onclick="removeFromCart('${item.id}')" style="background:#ff4444; color:white; margin-left:10px;">X</button>
+                <button class="btn cart-remove-btn" onclick="removeFromCart('${item.id}')">X</button>
               </div>
             </div>
           </div>`;
@@ -189,7 +173,7 @@
     renderCart();
   }
 
-  // ---INITIALIZATION---
+  // --- 5. INITIALIZATION ---
   document.addEventListener('DOMContentLoaded', () => {
     attachAddToCart();
     updateCartBadge();
@@ -256,8 +240,23 @@
 
     const filterBtn = document.getElementById("filter_button");
     const productsAside = document.getElementById("products-aside");
+    const closeFilterBtn = document.getElementById("close_filters");
     if (filterBtn && productsAside) {
-      filterBtn.addEventListener("click", () => productsAside.classList.toggle("active"));
+      filterBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        productsAside.classList.add("active");
+        productsAside.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // Close Menu (The X Button)
+    if (closeFilterBtn && productsAside) {
+      closeFilterBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        productsAside.classList.remove("active");
+        const main = document.getElementById("products-main");
+        if (main) main.scrollIntoView({ behavior: 'smooth' });
+      });
     }
 
     // -- Checkout Logic --
@@ -299,15 +298,17 @@ function fillAddress(data) {
   document.getElementById('f_street').value = data.street || '';
   document.getElementById('f_city').value = data.city || '';
   document.getElementById('f_zip').value = data.zip_code || '';
-  document.getElementById('f_country').value = data.country || 'Romania';
+  document.getElementById('f_country').value = data.country || 'Romania'; // Default to Romania if not found
 
+  // If the saved address has a phone, use it, otherwise keep current
   if (data.phone_number) {
     document.getElementById('f_phone').value = data.phone_number;
   }
 
+  // Visual feedback
+  // Scroll slightly down to form
   document.getElementById('checkout-form').scrollIntoView({ behavior: 'smooth' });
 }
-
 /*-- Accordion Logic --*/
 document.addEventListener('DOMContentLoaded', function () {
   const headers = document.querySelectorAll('.accordion-header');
@@ -329,7 +330,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
 // Wishlist Form Submission
 const wishlistForm = document.getElementById('wishlist-form');
 if (wishlistForm) {
@@ -340,6 +340,7 @@ if (wishlistForm) {
       alert("Your cart is empty! Add items before saving a build.");
       return;
     }
+    // Inject cart data into the hidden input
     document.getElementById('wishlist_cart_input').value = JSON.stringify(cart);
   });
 }
@@ -349,6 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const productImg = document.getElementById('product-img');
 
   if (productImg) {
+
     const modal = document.createElement('div');
     modal.className = 'image-modal';
 
