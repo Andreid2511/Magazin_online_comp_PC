@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Studenți</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<body>
+
+    <h1>Catalog Studenți</h1>
+
+    <div class="form-container">
+        <h3>Adaugă Student</h3>
+        <form id="studentForm">
+            <div class="form-group">
+                <label>Nume:</label>
+                <input type="text" id="nume" pattern="[a-zA-Z\s]+" title="Please enter only letters and spaces."  placeholder="Ex: Popescu Ion">
+            </div>
+            <div class="form-group">
+                <label>Anul de studiu:</label>
+                <select id="an" required>
+                    <option value="" disabled selected>-- SELECTATI ANUL --</option>
+                    <option value="1">ANUL 1</option>
+                    <option value="2">ANUL 2</option>
+                    <option value="3">ANUL 3</option>
+                    <option value="4">ANUL 4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Media Generală:</label>
+                <input type="number" step="0.01" id="media" min="1" max="10" required>
+            </div>
+            <button type="submit">Adaugă în Catalog</button>
+        </form>
+    </div>
+
+    <h3>Lista Studenți</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nume</th>
+                <th>An</th>
+                <th>Media</th>
+            </tr>
+        </thead>
+        <tbody id="tabelStudenti">
+            </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
